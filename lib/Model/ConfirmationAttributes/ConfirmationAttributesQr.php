@@ -30,8 +30,33 @@ use YooKassa\Model\ConfirmationType;
 
 class ConfirmationAttributesQr extends AbstractConfirmationAttributes
 {
+    /**
+     * Адрес страницы, на которую пользователь вернется после подтверждения или отмены платежа в приложении банка.
+     *
+     * Например, если хотите вернуть пользователя на сайт, вы можете передать URL, если в мобильное приложение — диплинк.
+     * URI должен соответствовать стандарту [RFC-3986](https://www.ietf.org/rfc/rfc3986.txt).
+     * Не более 1024 символов.
+     *
+     * Доступно только для платежей через [СБП](https://yookassa.ru/developers/payment-acceptance/integration-scenarios/manual-integration/other/sbp).
+     *
+     * @var string|null
+     */
+    private $_returnUrl;
+
     public function __construct()
     {
         $this->setType(ConfirmationType::QR);
+    }
+
+    public function getReturnUrl(): ?string
+    {
+        return $this->_returnUrl;
+    }
+
+    public function setReturnUrl(?string $returnUrl = null): self
+    {
+        $this->_returnUrl = $returnUrl;
+
+        return $this;
     }
 }
