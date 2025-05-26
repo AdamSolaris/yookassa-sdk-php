@@ -155,6 +155,9 @@ class CreatePaymentRequestSerializer
         if ($confirmation->getType() === ConfirmationType::MOBILE_APPLICATION) {
             $result['return_url'] = $confirmation->getReturnUrl();
         }
+        if (($confirmation->getType() === ConfirmationType::QR) && !empty($confirmation->getReturnUrl())) {
+            $result['return_url'] = $confirmation->getReturnUrl();
+        }
 
         return $result;
     }
